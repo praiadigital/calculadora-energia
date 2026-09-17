@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Calculadora Solar — energia solar no litoral | Praia Digital</title>
+<meta name="description" content="Descubra quanto seu imóvel no litoral paulista economiza com energia solar e o payback do investimento.">
+<link rel="canonical" href="https://praia.digital/calculadora-energia/">
+<meta name="robots" content="index, follow">
+<style>
+:root{font-family:system-ui,-apple-system,sans-serif}
+body{margin:0;background:#422006;color:#fef3c7;min-height:100vh}
+.wrap{max-width:680px;margin:0 auto;padding:40px 20px}
+.card{background:#713f12;border:1px solid #eab308;border-radius:16px;padding:24px;margin-top:20px}
+input{width:100%;padding:10px;border-radius:10px;border:1px solid #facc15;background:#422006;color:#fef3c7;margin-top:6px;box-sizing:border-box}
+button{background:#facc15;color:#422006;border:0;padding:12px 18px;border-radius:12px;font-weight:700;cursor:pointer;margin-top:14px}
+label{font-size:14px;font-weight:600;margin-top:10px;display:block}
+.linha{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px dashed #eab308;font-size:14px}
+.destaque{font-size:26px;font-weight:800;color:#fde047;margin-top:12px}
+.btn{display:inline-block;margin-top:16px;padding:12px 18px;border-radius:12px;background:#0ea5e9;color:#fff;text-decoration:none;font-weight:700}
+small{opacity:.7}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>☀️ Calculadora Solar</h1>
+  <p>O litoral tem 2.200+ horas de sol por ano. Veja quanto seu imóvel economiza com energia solar.</p>
+  <div class="card">
+    <label>Conta de luz mensal (R$)</label><input id="conta" type="number" value="450">
+    <label>Tipo de telhado</label>
+    <select id="telhado" style="width:100%;padding:10px;border-radius:10px;border:1px solid #facc15;background:#422006;color:#fef3c7;margin-top:6px"><option value="1">Casa (telhado próprio)</option><option value="0.6">Apartamento (área comum compartilhada)</option></select>
+    <button onclick="calc()">Simular economia</button>
+    <div id="out"></div>
+  </div>
+  <small>Estimativas com tarifa média de R$ 0,95/kWh e irradiação do litoral paulista.</small><br>
+  <a class="btn" href="https://praiadigital.github.io/reforma-roi/">Reforma ROI</a>
+  <a class="btn" href="https://praiadigital.github.io/proprietarios/">Portal do Proprietário</a>
+  <a class="btn" href="https://praiadigital.github.io/simulador-roi/">Simulador ROI</a>
+</div>
+<script>
+function fmt(v){return v.toLocaleString('pt-BR',{style:'currency',currency:'BRL',maximumFractionDigits:0});}
+function calc(){
+  const conta=+document.getElementById('conta').value,f=+document.getElementById('telhado').value;
+  const kwh=conta/0.95;
+  const placa=kwh/(5*30)*1.25; // ~5h sol/dia + perdas
+  const invest=placa*1000*4.2;
+  const eco=conta*0.85*f;
+  const payback=eco>0?(invest/eco/12):0;
+  const eco25=eco*12*25-invest;
+  document.getElementById('out').innerHTML='<div style="margin-top:16px">'+
+   '<div class="linha"><span>Sistema estimado</span><b>'+placa.toFixed(1)+' kWp</b></div>'+
+   '<div class="linha"><span>Investimento aproximado</span><b>'+fmt(invest)+'</b></div>'+
+   '<div class="linha"><span>Economia mensal</span><b>'+fmt(eco)+'</b></div>'+
+   '<div class="destaque">Payback: '+payback.toFixed(1)+' anos</div>'+
+   '<p>Economia em 25 anos: <strong>'+fmt(eco25)+'</strong> — e seu imóvel ainda valoriza. Veja o impacto no Reforma ROI.</p></div>';
+}
+</script>
+<hr style="margin:40px 0 20px;border:none;border-top:1px solid #eab308">
+<nav style="font-size:.95em;text-align:center;padding:0 16px 32px;color:#fde047">
+<strong>Rede Praia Digital:</strong><br>
+<a style="color:#fde047" href="https://praia.digital/">Praia Digital</a> ·
+<a style="color:#fde047" href="https://praiadigital.github.io/apps/">Todos os apps</a> ·
+<a style="color:#fde047" href="https://praiadigital.github.io/reforma-roi/">Reforma ROI</a> ·
+<a style="color:#fde047" href="https://praiadigital.github.io/proprietarios/">Proprietários</a> ·
+<a style="color:#fde047" href="https://praiadigital.github.io/simulador-roi/">Simulador ROI</a> ·
+<a style="color:#fde047" href="https://praiadigital.github.io/calculadoras/">Calculadoras</a> ·
+<a style="color:#fde047" href="https://praiadigital.github.io/blog-litoral/">Blog</a>
+</nav>
+</body>
+</html>
